@@ -1,0 +1,20 @@
+[project]
+name = "real-time-ride-analytics"
+version = "1.0.0"
+description = "Real-time ride analytics: FastAPI producer -> Azure Event Hubs -> Databricks Lakeflow pipeline (medallion + star schema)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "azure-eventhub>=5.15",
+    "faker>=30.0",
+    "fastapi[standard]>=0.115",
+    "jinja2>=3.1",
+    "python-dotenv>=1.0",
+    "uvicorn>=0.30",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "httpx>=0.27"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

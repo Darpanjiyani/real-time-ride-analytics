@@ -1,0 +1,40 @@
+# Databricks Asset Bundle - deploy the pipeline with:
+#   databricks bundle validate
+#   databricks bundle deploy -t dev
+#   databricks bundle run ride_analytics_pipeline -t dev
+bundle:
+  name: real-time-ride-analytics
+
+variables:
+  catalog:
+    default: rides
+  eventhub_namespace:
+    description: Azure Event Hubs namespace (without .servicebus.windows.net)
+  eventhub_name:
+    default: rides
+  secret_scope:
+    default: ride-analytics
+
+resources:
+  pipelines:
+    ride_analytics_pipeline:
+      name: ride-analytics-pipeline
+      catalog: ${var.catalog}
+      schema: bronze
+      serverless: true
+      continuous: false
+      root_path: ./databricks/pipeline
+      libraries:
+        - glob:
+            include: ./databricks/pipeline/transformations/**
+      configuration:
+        catalog: ${var.catalog}
+        eventhub_namespace: ${var.eventhub_namespace}
+        eventhub_name: ${var.eventhub_name}
+        secret_scope: ${var.secret_scope}
+        secret_key: eventhub-connection-string
+
+targets:
+  dev:
+    mode: development
+    default: true

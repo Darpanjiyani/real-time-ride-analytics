@@ -1,0 +1,9 @@
+azure-eventhub>=5.15
+faker>=30.0
+fastapi[standard]>=0.115
+jinja2>=3.1
+python-dotenv>=1.0
+uvicorn>=0.30
+# dev / tests
+pytest>=8.0
+httpx>=0.27

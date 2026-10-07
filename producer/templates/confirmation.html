@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ride Confirmed</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        p, td { color: #555; }
+        td { padding: 4px 12px 4px 0; }
+        .button { display: inline-block; margin-top: 16px; padding: 10px 20px; color: white; background-color: #007BFF; border-radius: 5px; text-decoration: none; }
+        .button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ride {{ "Cancelled" if ride.ride_status_id == 2 else "Confirmed" }}</h1>
+        <p>Your booking event was published to the streaming pipeline.</p>
+        <table>
+            <tr><td>Confirmation #</td><td>{{ ride.confirmation_number }}</td></tr>
+            <tr><td>Ride ID</td><td>{{ ride.ride_id }}</td></tr>
+            <tr><td>Driver</td><td>{{ ride.driver_name }} ({{ ride.driver_rating }}&#9733;)</td></tr>
+            <tr><td>Distance</td><td>{{ ride.distance_miles }} mi</td></tr>
+            <tr><td>Total fare</td><td>${{ "%.2f"|format(ride.total_fare) }}</td></tr>
+        </table>
+        <a href="/book" class="button">Book another</a>
+    </div>
+</body>
+</html>
